@@ -31,6 +31,9 @@ public class BoardController extends BoardImpl implements Initializable{
     private GridPane gridPane;
 
     @FXML
+    private Label txtName;
+
+    @FXML
     private Button button4;
 
     @FXML
@@ -64,6 +67,10 @@ public class BoardController extends BoardImpl implements Initializable{
 
     Integer rowIndex = 0;
     Integer colIndex = 0;
+
+    public void setName(String name){
+        txtName.setText(name);
+    }
 
     private Node getNodeByRowColumnIndex(int row, int col, GridPane gridPane) {
         for (Node node : gridPane.getChildren()) {

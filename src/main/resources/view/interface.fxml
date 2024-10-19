@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.tictactoe.service.Controller.BoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="424.0" style="-fx-background-color: #2c3e50;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.tictactoe.service.Controller.BoardController">
    <children>
-      <Button layoutX="274.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnRest" text="Restart" />
-      <GridPane fx:id="gridPane" layoutX="159.0" layoutY="66.0" prefHeight="285.0" prefWidth="298.0">
+      <Button layoutX="348.0" layoutY="504.0" mnemonicParsing="false" onAction="#btnRest" prefHeight="56.0" prefWidth="57.0" style="-fx-background-radius: 50; -fx-background-color: #27ae60;" text="Refesh">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <GridPane fx:id="gridPane" layoutX="48.0" layoutY="132.0" prefHeight="324.0" prefWidth="329.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -25,20 +27,30 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="button1" mnemonicParsing="false" onAction="#buttonClick" prefHeight="89.0" prefWidth="95.0" />
-            <Button fx:id="button2" mnemonicParsing="false" onAction="#buttonClick" prefHeight="89.0" prefWidth="95.0" GridPane.columnIndex="1" />
-            <Button fx:id="button3" mnemonicParsing="false" onAction="#buttonClick" prefHeight="89.0" prefWidth="95.0" GridPane.columnIndex="2" />
-            <Button fx:id="button4" mnemonicParsing="false" onAction="#buttonClick" prefHeight="89.0" prefWidth="95.0" GridPane.rowIndex="1" />
-            <Button fx:id="button5" mnemonicParsing="false" onAction="#buttonClick" prefHeight="89.0" prefWidth="95.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="button6" mnemonicParsing="false" onAction="#buttonClick" prefHeight="89.0" prefWidth="95.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="button7" mnemonicParsing="false" onAction="#buttonClick" prefHeight="89.0" prefWidth="95.0" GridPane.rowIndex="2" />
-            <Button fx:id="button8" mnemonicParsing="false" onAction="#buttonClick" prefHeight="89.0" prefWidth="95.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="button9" mnemonicParsing="false" onAction="#buttonClick" prefHeight="89.0" prefWidth="95.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="button1" mnemonicParsing="false" onAction="#buttonClick" prefHeight="105.0" prefWidth="108.0" />
+            <Button fx:id="button2" mnemonicParsing="false" onAction="#buttonClick" prefHeight="105.0" prefWidth="108.0" GridPane.columnIndex="1" />
+            <Button fx:id="button3" mnemonicParsing="false" onAction="#buttonClick" prefHeight="105.0" prefWidth="108.0" GridPane.columnIndex="2" />
+            <Button fx:id="button4" mnemonicParsing="false" onAction="#buttonClick" prefHeight="105.0" prefWidth="108.0" GridPane.rowIndex="1" />
+            <Button fx:id="button5" mnemonicParsing="false" onAction="#buttonClick" prefHeight="105.0" prefWidth="108.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="button6" mnemonicParsing="false" onAction="#buttonClick" prefHeight="105.0" prefWidth="108.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="button7" mnemonicParsing="false" onAction="#buttonClick" prefHeight="105.0" prefWidth="108.0" GridPane.rowIndex="2" />
+            <Button fx:id="button8" mnemonicParsing="false" onAction="#buttonClick" prefHeight="105.0" prefWidth="108.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="button9" mnemonicParsing="false" onAction="#buttonClick" prefHeight="105.0" prefWidth="108.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Label fx:id="lblText" layoutX="206.0" layoutY="14.0" text="Tic-Tac-Toe">
+      <Label fx:id="lblText" contentDisplay="CENTER" layoutX="110.0" layoutY="31.0" text="Tic-Tac-Toe" textAlignment="CENTER" textFill="#ecf0f1" wrapText="true">
          <font>
             <Font name="Book Antiqua" size="39.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtName" layoutX="63.0" layoutY="372.0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="550.0" text="Name : " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
          </font>
       </Label>
    </children>

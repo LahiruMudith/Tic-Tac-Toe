@@ -3,6 +3,7 @@ package com.assignment.tictactoe.service;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,9 +28,10 @@ public class AppInitializer extends Application {
 //
 //            board.printBoard();
 
-            FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/interface.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/startMenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Tic-Tac-Toe");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
         stage.setScene(scene);
         stage.show();
     }
