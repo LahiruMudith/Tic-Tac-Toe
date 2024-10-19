@@ -65,71 +65,90 @@ public class BoardController extends BoardImpl implements Initializable{
     Integer rowIndex = 0;
     Integer colIndex = 0;
 
-    public void buttonClick(ActionEvent actionEvent) {
-            Node source = (Node) actionEvent.getSource();
-            colIndex = GridPane.getColumnIndex(source);
-            rowIndex = GridPane.getRowIndex(source);
+    private Node getNodeByRowColumnIndex(int row, int col, GridPane gridPane) {
+        for (Node node : gridPane.getChildren()) {
+            // Check if the node has valid row and column indices
+            Integer nodeRowIndex = GridPane.getRowIndex(node);
+            Integer nodeColIndex = GridPane.getColumnIndex(node);
 
-            if (colIndex == null) {
-                colIndex = 0;
+            if (nodeColIndex == null) {
+                nodeColIndex = 0;
             }
-            if (rowIndex == null) {
-                rowIndex = 0;
+            if (nodeRowIndex == null) {
+                nodeRowIndex = 0;
             }
+
+            if (nodeRowIndex == row && nodeColIndex == col) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    public void buttonClick(ActionEvent actionEvent) {
+        Node source = (Node) actionEvent.getSource();
+        colIndex = GridPane.getColumnIndex(source);
+        rowIndex = GridPane.getRowIndex(source);
+
+        if (colIndex == null) {
+            colIndex = 0;
+        }
+        if (rowIndex == null) {
+            rowIndex = 0;
+        }
     }
 
     public void clickButton(Button button){
-            button.setOnMouseClicked(mouseEvent -> {
-                System.out.println("Row Index : " + rowIndex + " Col Index : " + colIndex);
-                System.out.println("Is legal to move : " + isLegalMove(rowIndex, colIndex));
-                if (isLegalMove(rowIndex, colIndex)){
-                    updateMove(rowIndex, colIndex, pieceX);
-                    printBoard();
-                    System.out.println();
-                    button.setText(pieceX.toString());
-//                    button.setFocusTraversable(false);
+        button.setOnMouseClicked(mouseEvent -> {
+            System.out.println("Row Index : " + rowIndex + " Col Index : " + colIndex);
+            System.out.println("Is legal to move : " + isLegalMove(rowIndex, colIndex));
+            if (isLegalMove(rowIndex, colIndex)){
+                updateMove(rowIndex, colIndex, pieceX);
+                printBoard();
+                System.out.println();
+                button.setText(pieceX.toString());
+                button.setFocusTraversable(false);
 
-                    boolean randomGenarator = true;
-                    boolean goForward = false;
-                    while (randomGenarator){
+                boolean randomGenarator = true;
+                boolean goForward = false;
+                while (randomGenarator){
+                    rowIndex = random.nextInt(4);
+                    colIndex = random.nextInt(4);
+                    boolean x = isLegalMove(rowIndex, colIndex);
+                    if (x){
+                        randomGenarator = false;
+                        goForward = true;
+                    }
+                }
+                if (goForward){
+                    System.out.println("Row Index : " + rowIndex + " Col Index : " + colIndex);
+                    System.out.println("Is legal to move : " + isLegalMove(rowIndex, colIndex));
+                    if (isLegalMove(rowIndex, colIndex)){
                         try {
                             Thread.sleep(300);
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        rowIndex = random.nextInt(4);
-                        colIndex = random.nextInt(4);
-                        boolean x = isLegalMove(rowIndex, colIndex);
-                        if (x){
-                            randomGenarator = false;
-                            goForward = true;
-                        }
-                    }
-                    if (goForward){
-                        System.out.println("Row Index : " + rowIndex + " Col Index : " + colIndex);
-                        System.out.println("Is legal to move : " + isLegalMove(rowIndex, colIndex));
-                        if (isLegalMove(rowIndex, colIndex)){
-                            updateMove(rowIndex, colIndex, pieceO);
-                            printBoard();
-                            System.out.println();
-                            String newBtnId = gridPane.getChildren().get(colIndex).getId();
-
-                            newBtn.setText(pieceO.toString());
-                            newBtn.setFocusTraversable(false);
-                            gridPane.add(newBtn, colIndex, rowIndex);
-                            printWinner();
-                        }
+                        updateMove(rowIndex, colIndex, pieceO);
+                        printBoard();
+                        System.out.println();
+                        Button newBtnId = (Button) getNodeByRowColumnIndex(rowIndex, colIndex, gridPane);
+                        newBtnId.setText(pieceO.toString());
+//                        newBtnId.setFocusTraversable(false);
+                        printWinner();
                     }
                 }
-            });
+            }
+        });
     }
 
     @FXML
     void btnRest(ActionEvent event) {
+        initializeBoard();
+        printWinner();
         for(Button button : buttons){
             button.setText(null);
-            initializeBoard();
-            printWinner();
+            button.setDisable(false);
         }
     }
 
@@ -156,6 +175,8 @@ public class BoardController extends BoardImpl implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         buttons = new ArrayList<>(Arrays.asList(button1, button2, button3, button4, button5, button6, button7, button8, button9));
+
+        System.out.println(getNodeByRowColumnIndex(2, 2, gridPane));
 
         initializeBoard();
         for(Button button : buttons){
