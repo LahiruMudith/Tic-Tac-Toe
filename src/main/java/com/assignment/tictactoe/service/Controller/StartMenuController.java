@@ -3,7 +3,6 @@ package com.assignment.tictactoe.service.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -28,7 +27,7 @@ public class StartMenuController {
     void btnStartGame(ActionEvent event) {
         if (lblUserName.getText() != null){
             try {
-                AnchorPane load= FXMLLoader.load(getClass().getResource("/view/interface.fxml"));
+                AnchorPane load= FXMLLoader.load(getClass().getResource("/view/board.fxml"));
                 ancorStartPage.getChildren().add(load);
             } catch (IOException e) {
                 throw new RuntimeException(e);

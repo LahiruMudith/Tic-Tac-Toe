@@ -28,7 +28,7 @@ public class AppInitializer extends Application {
 //
 //            board.printBoard();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/startMenu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/board.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Tic-Tac-Toe");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
@@ -37,6 +37,6 @@ public class AppInitializer extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }
