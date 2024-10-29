@@ -1,10 +1,8 @@
 package com.assignment.tictactoe.service;
 
 public class HumanPlayer extends Player {
-    BoardImpl board;
     public HumanPlayer(BoardImpl board) {
         super(board);
-        this.board = board;
     }
 
     public void move(int row, int col) {

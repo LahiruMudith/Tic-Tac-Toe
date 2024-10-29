@@ -5,119 +5,105 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class BoardController implements BoardUI, Initializable {
-    BoardImpl board =  new BoardImpl();
-    HumanPlayer humanPlayer = new HumanPlayer(board);
-    AIPlayer aiPlayer = new AIPlayer(board);
+    BoardImpl board;
+    HumanPlayer humanPlayer;
+    AIPlayer aiPlayer;
     Piece pieceX = Piece.X;
     Piece pieceO = Piece.O;
 
+    public BoardController(){
+        board =  new BoardImpl();
+        humanPlayer  = new HumanPlayer(board);
+        aiPlayer  = new AIPlayer(board);
+    }
     @FXML
     private GridPane gridPane;
 
-    @FXML
-    private Label txtName;
-
-    @FXML
-    private Button button4;
-
-    @FXML
-    private Button button5;
-
-    @FXML
-    private Button button2;
-
-    @FXML
-    private Button button3;
-
-    @FXML
-    private Button button8;
-
-    @FXML
-    private Button button9;
-
-    @FXML
-    private Button button6;
 
     @FXML
     private Label lblText;
 
     @FXML
-    private Button button7;
-
-    @FXML
-    private Button button1;
-
-    ArrayList<Button> buttons;
-    public Button clickBtn;
-
-    public void setName(String name){
-        txtName.setText(name);
-    }
-
+    private Label txtName;
 
     public void buttonClick(ActionEvent actionEvent) {
-        clickBtn = (Button) actionEvent.getSource();
-        Node source = (Node) actionEvent.getSource();
-        Integer colIndex = GridPane.getColumnIndex(source);
-        Integer rowIndex = GridPane.getRowIndex(source);
-        if (colIndex == null) {colIndex = 0;}
-        if (rowIndex == null) {rowIndex = 0;}
+        Button button = (Button) actionEvent.getSource();
+        int row = Integer.parseInt(button.getId().split("")[2]);
+        int col = Integer.parseInt(button.getId().split("")[3]);
 
-        humanPlayer.move(rowIndex, colIndex);
-        update(colIndex, rowIndex, true);
-        notifyWinner();
+        humanPlayer.move(row, col);
+        aiPlayer.findBestMove();
+        board.printBoard();
+        updateUi();
+
+        if (board.checkWinner() != null) {
+            notifyWinner(board.checkWinner().getWinningPiece());
+        }
+    }
+
+    private void updateUi() {
+        for (int i=0; i<board.getPieces().length; i++){
+            for (int j=0; j<board.getPieces()[i].length; j++){
+                update(j, i, board.getPieces()[i][j]);
+            }
+        }
     }
 
     @FXML
     void btnRest(ActionEvent event) {
+        clearBoard();
+    }
+    public void clearBoard(){
         board.initializeBoard();
-        notifyWinner();
-        for(Button button : buttons){
+        for(Node node : gridPane.getChildren()){
+            Button button = (Button) node;
             button.setText(null);
             button.setDisable(false);
         }
     }
 
     @Override
-    public void update(int col, int row, boolean isHumen) {
-        if (clickBtn != null){
-            clickBtn.setText(isHumen ? pieceX.toString() : pieceO.toString());
-            clickBtn.setDisable(true);
-            clickBtn.setFocusTraversable(false);
+    public void update(int col, int row, Piece piece) {
+        String buttonId = "id" + row + col;
+        for (Node node : gridPane.getChildren()) {
+            if (node instanceof Button button && buttonId.equals(node.getId())) {
+                if (piece == Piece.X) {
+                    button.setText("X");
+                    button.setDisable(true);
+                } else if (piece == Piece.O) {
+                    button.setText("O");
+                    button.setDisable(true);
+                } else {
+                    button.setText("");
+                }
+                break;
+            }
         }
     }
 
-    @Override
-    public void notifyWinner() {
-        Piece winner = board.checkWinner();
-        if (winner == pieceX){
-            lblText.setText("X is win");
-            clickBtn.setDisable(true);
-        }else if (winner == pieceO){
-            lblText.setText("O is win");
-            clickBtn.setDisable(true);
+    public void notifyWinner(Piece piece) {
+        if (piece == pieceX){
+            new Alert(Alert.AlertType.INFORMATION, "X Win").show();
+            clearBoard();
+        }else if (piece == pieceO){
+            new Alert(Alert.AlertType.INFORMATION, "X Win").show();
+            clearBoard();
         }else{
             lblText.setText("Tic-Tac-Toe");
+            clearBoard();
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        buttons = new ArrayList<>(Arrays.asList(button1,button2,button3,button4,button5,button6,button7,button8,button9));
-        for(Button button : buttons){
-            button.setFocusTraversable(false);
-        }
         board.initializeBoard();
-        board.printBoard();
     }
 }
