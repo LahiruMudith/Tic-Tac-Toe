@@ -1,6 +1,8 @@
 package com.assignment.tictactoe.service;
 
-public class AIPlayer extends Player{
+import javafx.scene.control.Alert;
+
+public class AIPlayer extends Player {
 
     public AIPlayer(BoardImpl board) {
         super(board);
@@ -34,6 +36,7 @@ public class AIPlayer extends Player{
                 }
             }
         }
+
 
         if (bestRow != -1 && bestCol != -1) {
             move(bestRow, bestCol);
@@ -80,5 +83,4 @@ public class AIPlayer extends Player{
             return bestValue;
         }
     }
-
 }

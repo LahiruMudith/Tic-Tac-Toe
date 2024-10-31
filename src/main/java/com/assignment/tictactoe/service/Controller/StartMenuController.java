@@ -15,9 +15,6 @@ public class StartMenuController {
     private Pane pane;
 
     @FXML
-    public TextField lblUserName;
-
-    @FXML
     private Text lblLoginError;
 
     @FXML
@@ -25,15 +22,11 @@ public class StartMenuController {
 
     @FXML
     void btnStartGame(ActionEvent event) {
-        if (lblUserName.getText() != null){
             try {
                 AnchorPane load= FXMLLoader.load(getClass().getResource("/view/board.fxml"));
                 ancorStartPage.getChildren().add(load);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }else {
-            lblLoginError.setText("Please Fil Name");
-        }
     }
 }

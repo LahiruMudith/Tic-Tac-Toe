@@ -40,8 +40,13 @@ public class BoardController implements BoardUI, Initializable {
         int col = Integer.parseInt(button.getId().split("")[3]);
 
         humanPlayer.move(row, col);
-        aiPlayer.findBestMove();
-        board.printBoard();
+        if (!board.isFull()){
+            aiPlayer.findBestMove();
+            board.printBoard();
+        }else {
+            new Alert(Alert.AlertType.INFORMATION, "Tic").show();
+            clearBoard();
+        }
         updateUi();
 
         if (board.checkWinner() != null) {
@@ -81,6 +86,11 @@ public class BoardController implements BoardUI, Initializable {
                 } else if (piece == Piece.O) {
                     button.setText("O");
                     button.setDisable(true);
+                    try {
+                        Thread.sleep(10);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 } else {
                     button.setText("");
                 }
@@ -94,10 +104,7 @@ public class BoardController implements BoardUI, Initializable {
             new Alert(Alert.AlertType.INFORMATION, "X Win").show();
             clearBoard();
         }else if (piece == pieceO){
-            new Alert(Alert.AlertType.INFORMATION, "X Win").show();
-            clearBoard();
-        }else{
-            lblText.setText("Tic-Tac-Toe");
+            new Alert(Alert.AlertType.INFORMATION, "O Win").show();
             clearBoard();
         }
     }

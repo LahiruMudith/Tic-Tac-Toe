@@ -10,27 +10,10 @@ import java.io.IOException;
 
 public class AppInitializer extends Application {
     public void start(Stage stage) throws IOException {
-//        BoardImpl board = new BoardImpl();
-//        HumanPlayer humanPlayer = new HumanPlayer(board);
-//        AIPlayer aiPlayer = new AIPlayer(board);
-
-        // Game loop to alternate turns between human and AI
-//        while (!board.isGameOver()) {
-//            // Human player move
-//            int[] humanMove = humanPlayer.getMove();
-//            board.updateMove(humanMove[0], humanMove[1], Piece.X);
-//
-//            if (board.checkWinner() != Piece.EMPTY) break;
-//
-//            // AI move
-//            int[] aiMove = aiPlayer.getMove();
-//            board.updateMove(aiMove[0], aiMove[1], Piece.O);
-//
-//            board.printBoard();
-
-        FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/board.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/startMenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Tic-Tac-Toe");
+        stage.isResizable();
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
         stage.setScene(scene);
         stage.show();
